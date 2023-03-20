@@ -2,15 +2,8 @@ import time
 from random import randint
 
 chances = " "
-acertou = bool
+acertou = " "
 name = " "
-#opcao de salvar
-def salvar():
-    with open('dados.txt', 'a') as arquivo:
-                for valor in name, chances, acertou:
-                    arquivo.write(str(valor) + '         ')
-                    print("feito")
-                arquivo.write("\n")
 
 #opcoes do jogador
 def opcao():
@@ -86,10 +79,9 @@ def creditos():
 #função de jogar
 def jogar():
     chances = 0
-    numero = randint(0, 10)
+    numero = randint(0, 1)
 
     name = input("Informe seu nome com duas letras, para iniciar o jogo: ")
-    time.sleep(3)
 
     while chances != 3:
         chances = chances + 1
@@ -98,30 +90,32 @@ def jogar():
         if chute == numero:
             acertou = True
             print("\n" * 50)
-            print("Parabéns você acertou!!")
+            print(f"Parabéns você acertou, era exatamente o numero {numero}!!")
+            time.sleep(5)
             #funçao para salvar usuario e tentativas
             with open('dados.txt', 'a') as arquivo:
                 for valor in name, chances, acertou:
                     arquivo.write(str(valor) + '         ')
-                    print("feito")
                 arquivo.write("\n")
-                
-            #chamaar sql para salvar dados no bd?
             
             opcao()
             
         elif chute != numero:
             acertou = False
+            acertou == "N"
             if chances != 3:
                 print(f"voce errou, esta foi sua {chances}° chance!")
+                print("\n")
             elif chances == 3:
-                print(f"voce errou, esta foi sua {chances}° chance!")
-                print(f"o numero era {numero}")
-                print("fim de jogo")
+                print(f"Voce errou, esta foi sua {chances}° chance!")
+                print(f"O numero era {numero}")
+                print("\n")
+                print("Fim de jogo")
+                time.sleep(5)
+                carregar()
                 with open('dados.txt', 'a') as arquivo:
                     for valor in name, chances, acertou:
                         arquivo.write(str(valor) + '         ')
-                        print("feito")
                     arquivo.write("\n")
                 opcao()
 
